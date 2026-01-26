@@ -1,127 +1,184 @@
-# ip-country-world-map-pin
+# 🌐 IP Geolocation Lookup Tool
 
-IP Geolocation Lookup Tool
+A **graphical IP geolocation tool for Linux terminals**, written in **Perl** and designed for **kitty-based terminal consoles**. It detects your public IP address, resolves its country via GeoIP, pins the location on a world map, and renders everything **directly inside the terminal**.
 
-A powerful, graphical IP geolocation tool for a kitty-based terminal consoles, on Linux, written in Perl. It fetches your public IP address, determines your country via GeoIP, pins your location on a world map, and renders with full graphics in the terminal. Perfect for Cherry Terminal on the Blackbox-hwm window manager.
-Features
+Ideal for **Cherry Terminal** running on the **Blackbox-hwm** window manager, but fully usable on any Linux system with the required dependencies.
 
-    IP Detection: Fetches your public IP using icanhazip.com.
-    Geolocation Lookup: Uses geoiplookup to get country information.
-    Caching: Caches results to avoid repeated lookups.
-    Graphical Map: Downloads a world map, pins your location with a red circle and label, and displays it graphically in the terminal.
-    Error Handling: Robust error checking and fallbacks.
-    Customizable: Easy to modify centroids to add more countries.
+---
 
-Demo
+## ✨ Features
+
+* **IP Detection** – Fetches your public IP using `icanhazip.com`
+* **Geolocation Lookup** – Resolves country data via `geoiplookup`
+* **Caching** – Avoids repeated lookups by caching results locally
+* **Graphical World Map** – Downloads a world map, pins your location with a red marker, and renders it in-terminal
+* **Robust Error Handling** – Graceful fallbacks when services or tools are unavailable
+* **Customizable** – Easily extend country centroids or replace the map source
+
+---
+
+## 🖼️ Demo
 
 ![Demo screenshot](demo/demo.webp)
 
+### Example Output
+
+```
 🌐 IP & Geolocation Lookup Tool 🌍
 
 Powered by icanhazip.com, geoiplookup, and viu
 
-
 🔍 Fetching your IP address...
-
 📡 Your IP: 192.168.1.1
-
 
 🗺️  Looking up geolocation...
 
-📍 Geolocation Results:
-
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 🌍 Country: Indonesia
-
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-
-🖼️  Displaying Graphical World Map with viu:
-
-[Graphical world map with red pin at Iraq location]
-
-📍 Your approximate location: Indonesia (imagine the red 'X' on the map!)
+🖼️  Displaying Graphical World Map:
+📍 Your approximate location: Indonesia
 
 ✅ Lookup complete! Stay secure online. 🔒
+```
 
-Installation
-Prerequisites
+---
 
-    Perl: to run the script.
-    curl: for IP fetching.
-    geoiplookup: for geolocation.
-    viu for graphical display.
-    ImageMagick: for map pinning.
-    Map File (included): for map render.
-    Apache web server (recommended): for fetching map source file. Alternatively, place map source file in a local dir.
+## 📦 Installation
 
-Steps
+### Prerequisites
 
-    Clone the repo:
+Ensure the following are installed:
 
+* **Perl** – Script runtime
+* **curl** – IP fetching
+* **geoiplookup** – Geolocation resolution
+* **viu** – Terminal image rendering
+* **ImageMagick** – Map pinning and image manipulation
+* **Map image** – Included with the repository
+
+> **Optional:** Apache (or any web server) if you want to fetch the map image remotely. You may also place the map image locally instead.
+
+---
+
+### Install Steps
+
+Clone the repository:
+
+```bash
 git clone https://github.com/fpucore/ip-country-world-map-pin
-
 cd ip-country-world-map-pin
+```
 
-Make executable:
+Make the script executable:
 
+```bash
 chmod +x ip-geo-lookup.pl
+```
 
-Run:
+Run the tool:
 
-    ./ip-geo-lookup.pl
-
-Usage
-Basic Run
-
+```bash
 ./ip-geo-lookup.pl
+```
 
-Launcher Script
+---
 
-Use the included launch-ip-geo.pl to open in a new terminal:
+## 🚀 Usage
 
+### Basic Usage
+
+```bash
+./ip-geo-lookup.pl
+```
+
+### Launcher Script
+
+Use the included launcher to open the tool in a new **kitty** terminal window:
+
+```bash
 ./launch-ip-geo.pl
+```
 
-This uses kitty to launch the tool and keeps the terminal open, prompting the user to interact to exit.
-Customization
+The launcher keeps the terminal open and prompts the user before exit.
 
-    Add Countries: Edit %COUNTRY_CENTROID in the script for more locations.
-    Map Source: Change $MAP_URL to a different image URL.
-    Cache: Results are cached in ~/.cache/ip_geo_lookup/ for speed.
+---
 
-Dependencies
+## 🛠️ Customization
 
-    Perl Modules: Term::ANSIColor, File::Path.
-    External Tools: curl, geoiplookup, viu, ImageMagick.
-    OS: Linux (tested on H-Linux with Blackbox-hwm; will work on others with dependencies installed).
+* **Add Countries** – Extend `%COUNTRY_CENTROID` in the script
+* **Map Source** – Change `$MAP_URL` to point to a different image
+* **Cache Location** – Cached results are stored in:
 
-Install for system-wide execution:
+  ```
+  ~/.cache/ip_geo_lookup/
+  ```
 
+---
+
+## 📚 Dependencies
+
+### Perl Modules
+
+* `Term::ANSIColor`
+* `File::Path`
+
+### External Tools
+
+* `curl`
+* `geoiplookup`
+* `viu`
+* `ImageMagick`
+
+### Platform
+
+* **Linux** (tested on **H-Linux with Blackbox-hwm**, but works on other distributions with dependencies installed)
+
+---
+
+## 🔗 System-wide Installation (Optional)
+
+To make the tool available globally:
+
+```bash
 sudo ln -s ip-world-country-map-pin/ip-geo-lookup.pl /usr/bin/ip-geo-lookup
+```
 
-License
+---
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-Contributing
+## 📄 License
 
-Contributions are welcome! Please:
+This project is licensed under the **MIT License**. See the `LICENSE` file for details.
 
-    Fork the repo.
-    Submit a pull request.
+---
 
-Credits
+## 🤝 Contributing
 
-    Developer: Chris McGimpsey-Jones (chrisjones.unixmen@gmail.com) 
-    Map Source: Wikimedia Commons (Public Domain).
-    Inspiration: For Blackbox-hwm on H-Linux.
+Contributions are welcome!
 
-Support
+1. Fork the repository
+2. Make your changes
+3. Submit a pull request
+
+---
+
+## 🙏 Credits
+
+* **Developer:** Chris McGimpsey-Jones ([chrisjones.unixmen@gmail.com](mailto:chrisjones.unixmen@gmail.com))
+* **Map Source:** Wikimedia Commons (Public Domain)
+* **Inspiration:** Blackbox-hwm on H-Linux
+
+---
+
+## 🆘 Support
 
 If you encounter issues:
 
-    Check dependencies are installed.
-    Ensure internet access for map download.
-    Open an issue on GitHub.
+* Verify all dependencies are installed
+* Ensure internet access for IP and map fetching
+* Open an issue on GitHub with details
 
-Enjoy exploring your digital location! 🌍
+---
+
+Enjoy exploring your digital location from the terminal! 🌍
