@@ -8,7 +8,7 @@ use File::Path qw(make_path);
 # ============================
 # Version / Credits
 # ============================
-my $VERSION = "1.1";
+my $VERSION = "1.2";
 
 # ============================
 # Configuration
@@ -25,6 +25,7 @@ my $CACHE_IP  = "$CACHE_DIR/ip_cache.txt";
 my %COUNTRY_CENTROID = (
     US => [ 39.8,  -98.6 ],
     CA => [ 56.1, -106.3 ],
+    MX => [ 23.6, -102.6 ],
     GB => [ 55.4,   -3.4 ],
     FR => [ 46.2,    2.2 ],
     DE => [ 51.2,   10.4 ],
