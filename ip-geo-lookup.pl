@@ -8,7 +8,7 @@ use File::Path qw(make_path);
 # ============================
 # Version / Credits
 # ============================
-my $VERSION = "2.0";
+my $VERSION = "3.0";
 
 # ============================
 # Configuration
@@ -307,16 +307,16 @@ sub run_once {
 
     # Step 1: Fetch map (cached)
     unless (-f $MAP_IN) {
-        print BOLD GREEN, "Fetching map from Apache server...\n", RESET;
+        print BOLD GREEN, "Sourcing map from server...\n", RESET;
         system("curl -s -o '$MAP_IN' '$MAP_URL'") == 0
-            or die BOLD RED . "Failed to download map\n" . RESET;
+            or die BOLD RED . "Failed to source map\n" . RESET;
     }
 
     # Step 2: Get public IP
-    print BOLD GREEN, "Fetching public IP...\n", RESET;
+    print BOLD GREEN, "Determining public IP...\n", RESET;
     my $ip = run("curl -s icanhazip.com");
 
-    die BOLD RED . "Failed to get IP\n" . RESET
+    die BOLD RED . "Failed to determine public IP\n" . RESET
         unless $ip =~ /^\d+\.\d+\.\d+\.\d+$/;
 
     print "IP: ", BOLD YELLOW, "$ip\n", RESET;
@@ -340,10 +340,10 @@ sub run_once {
 
     # Step 4: GeoIP lookup
     unless ($cc) {
-        print BOLD GREEN, "Looking up country...\n", RESET;
+        print BOLD GREEN, "Determining source country...\n", RESET;
 
         my $geo = run("geoiplookup $ip")
-            or die BOLD RED . "GeoIP lookup failed\n" . RESET;
+            or die BOLD RED . "Failed to determine source country\n" . RESET;
 
         if ($geo =~ /:\s*([A-Z]{2}),\s*(.+)$/) {
             ($cc, $country) = ($1, $2);
@@ -365,10 +365,10 @@ sub run_once {
     my ($lat, $lon) = @{ $COUNTRY_CENTROID{$cc} };
 
     # Step 5: Map dimensions
-    print BOLD GREEN, "Detecting map dimensions...\n", RESET;
+    print BOLD GREEN, "Determining map specifications...\n", RESET;
 
     my $identify = run("magick identify -format \"%w %h\" '$MAP_IN'");
-    die BOLD RED . "Failed to identify map\n" . RESET
+    die BOLD RED . "Failed to determine map specifications\n" . RESET
         unless $identify =~ /^\d+\s+\d+$/;
 
     my ($W, $H) = split /\s+/, $identify;
@@ -381,7 +381,7 @@ sub run_once {
     print "Pin pixel position: x=$x y=$y\n";
 
     # Step 7: Draw pin + label
-    print BOLD GREEN, "Drawing pin on map...\n", RESET;
+    print BOLD GREEN, "Drawing source country on map...\n", RESET;
 
     my $label_x = $x + 10;
     my $label_y = $y - 10;
@@ -404,27 +404,27 @@ sub run_once {
     ) == 0 or die BOLD RED . "ImageMagick failed\n" . RESET;
 
     # Step 8: Display
-    print BOLD GREEN, "Displaying map...\n\n", RESET;
+    print BOLD GREEN, "Printing map...\n\n", RESET;
 
     system("viu", "-w", "80", "-h", "20", $MAP_OUT) == 0
         or die BOLD RED . "viu failed\n" . RESET;
 
-    print BOLD CYAN, "\n✔ Country pinned successfully\n\n", RESET;
+    print BOLD CYAN, "\n✔ Source country pinned successfully\n\n", RESET;
 }
 
 # ============================
-# Run loop: R = rerun, Enter = quit
+# Run loop: R = rerun, Return = quit
 # ============================
 while (1) {
     run_once();
 
-    print BOLD MAGENTA, "Press [R] + Enter to rerun, or just Enter to quit: ", RESET;
+    print BOLD MAGENTA, "Press [R] + Return to rerun, or just Return to quit: ", RESET;
     my $ans = <STDIN>;
     last if !defined $ans;          # Ctrl-D
     chomp $ans;
 
-    last if $ans =~ /^\s*$/;        # Enter quits
+    last if $ans =~ /^\s*$/;        # Return quits
     next if $ans =~ /^\s*r\s*$/i;   # R reruns
 
-    print BOLD YELLOW, "Unknown option. Type R to rerun or press Enter to quit.\n\n", RESET;
+    print BOLD YELLOW, "Unknown option. Type R to rerun or press Return to quit.\n\n", RESET;
 }
