@@ -1,8 +1,10 @@
 # 🌐 IP Geolocation Lookup Tool
 
-A **graphical IP geolocation tool for Linux terminals**, written in **Perl** and designed for **kitty-based terminal consoles**. It detects your public IP address, resolves its country via GeoIP, pins the location on a world map, and renders everything **directly inside the terminal**.
+A **graphical IP geolocation tool for Linux terminals**, written in **Perl** and designed for **kitty-based terminal consoles**.
 
-Ideal for **Cherry Terminal** running on the **Blackbox-hwm** window manager, but fully usable on any Linux system with the required dependencies.
+It detects your public IP address, resolves its country via GeoIP, draws the location on a world map, and renders everything **directly inside the terminal**.
+
+Intended for **Cherry Terminal** on GNU Operating System / H-Linux platform and the **Blackbox-hwm** workspace, but is usable on any Linux system with the required dependencies satisfied.
 
 ---
 
@@ -67,8 +69,8 @@ Ensure the following are installed:
 Clone the repository:
 
 ```bash
-git clone https://github.com/fpucore/ip-country-world-map-pin
-cd ip-country-world-map-pin
+git clone https://www.github.com/fpucore/ip-geo-lookup
+cd ip-geo-lookup
 ```
 
 Make the script executable:
@@ -133,7 +135,7 @@ The launcher keeps the terminal open and prompts the user before exit.
 
 ### Platform
 
-* **Linux** (tested on **H-Linux with Blackbox-hwm**, but works on other distributions with dependencies installed)
+* **Linux** (tested on **H-Linux with Blackbox-hwm**, but works on other Linux distributions with required dependencies satisfied).
 
 ---
 
@@ -142,7 +144,7 @@ The launcher keeps the terminal open and prompts the user before exit.
 To make the tool available globally:
 
 ```bash
-sudo ln -s ip-world-country-map-pin/ip-geo-lookup.pl /usr/bin/ip-geo-lookup
+sudo ln -s ip-geo-lookup/ip-geo-lookup.pl /usr/bin/ip-geo-lookup
 ```
 
 ---
@@ -165,9 +167,8 @@ Contributions are welcome!
 
 ## 🙏 Credits
 
-* **Developer:** Chris McGimpsey-Jones ([chrisjones.unixmen@gmail.com](mailto:chrisjones.unixmen@gmail.com))
+* **Maintainer:** Chris McGimpsey-Jones ([chrisjones.unixmen@gmail.com](mailto:chrisjones.unixmen@gmail.com))
 * **Map Source:** Wikimedia Commons (Public Domain)
-* **Inspiration:** Blackbox-hwm on H-Linux
 
 ---
 
@@ -181,4 +182,4 @@ If you encounter issues:
 
 ---
 
-Enjoy exploring your digital location from the terminal! 🌍
+Enjoy exploring your digital location from the terminal console! 🌍
